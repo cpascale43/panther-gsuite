@@ -1,0 +1,5 @@
+nose
+panther_sdk
+panther_utils
+panther-classic-converter
+panther_analysis_tool
