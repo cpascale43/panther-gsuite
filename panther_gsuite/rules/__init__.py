@@ -1,1 +1,1 @@
-from .converted_gsuite_brute_force_login import *
+from .brute_force_login import *

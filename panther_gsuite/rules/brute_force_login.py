@@ -4,24 +4,8 @@ from panther_utils import standard_tags, match_filters
 
 from .. import sample_logs
 from .._shared import (
-    pick_filters,
-    create_alert_context
+    pick_filters
 )
-
-# possible gotchas & FAQs:
-# where can I see a list of function parameters? 
-# how do I know which parameters are required?
-# what does detection.JSONUnitTest do? (over a JSON dict)
-# can I still use panther_analysis_tool? can't find documentation on `panther_analysis_tool sdk` 
-# why am I seeing [ERROR]: Did not find a Panther SDK based module at ./panther_content when I try to run pat sdk test?
-
-'''
-[8:35:52] √ ~/Desktop/panther-labs/panther-gsuite/panther_gsuite/rules (main) % pat sdk test converted_gsuite_brute_force_login.py
-usage: panther_analysis_tool [-h] [--version] [--debug] {release,test,publish,upload,delete,update-custom-schemas,test-lookup-table,zip,check-connection,sdk} ...
-panther_analysis_tool: error: unrecognized arguments: converted_gsuite_brute_force_login.py
-[8:36:00] ?2 ~/Desktop/panther-labs/panther-gsuite/panther_gsuite/rules (main) % pat sdk test 
-[ERROR]: Did not find a Panther SDK based module at ./panther_content
-'''
 
 def gsuite_brute_force_login(
     pre_filters: typing.List[detection.AnyFilter] = None,
@@ -50,7 +34,7 @@ def gsuite_brute_force_login(
             or "https://developers.google.com/admin-sdk/reports/v1/appendix/activity/login#login_failure"
         ),
         runbook=(
-            overrides.runbook or "Analyze the IP they came from and actions taken before/after."
+            overrides.runbook or "Analyze the IP they came from and actions taken before/after"
         ),
         filters=pick_filters(
             overrides=overrides,
@@ -61,7 +45,6 @@ def gsuite_brute_force_login(
             ],
         ),
         alert_title=(overrides.alert_title or _title),
-        alert_context=(overrides.alert_context or create_alert_context),
         unit_tests=(
             overrides.unit_tests
             or [
@@ -73,9 +56,3 @@ def gsuite_brute_force_login(
             ]
         ),
     )
-
-
-def _rule(event: PantherEvent) -> bool:
-    if event.get("type") != "login":
-        return False
-    return bool(event.get("name") == "login_failure")

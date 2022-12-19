@@ -1,5 +1,4 @@
 from typing import List, Optional
-from panther_config import PantherEvent
 from panther_sdk import detection
 
 def pick_filters(
@@ -20,13 +19,3 @@ def pick_filters(
             return pre_filters + overrides.filters
 
     raise RuntimeError("unable to pick filters")
-
-def create_alert_context(event: PantherEvent) -> Dict[str, Any]:
-    """Returns common context for Okta alerts"""
-
-    return {
-        "ips": event.get("p_any_ip_addresses", []),
-        "actor": event.get("actor", ""),
-        "target": event.get("target", ""),
-        "client": event.get("client", ""),
-    }
