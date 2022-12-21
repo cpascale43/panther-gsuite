@@ -8,9 +8,6 @@ from .._shared import (
 )
 
 
-
-
-
 ### Global Helpers Begin ###
 GSUITE_PARAMETER_VALUES = [
     "value",
@@ -23,10 +20,7 @@ GSUITE_PARAMETER_VALUES = [
 ]
 
 def details_lookup(detail_type, detail_names, event):
-    print(event())
-
     for details in event.deep_get("events"):
-        print(details)
         if details.get("type") == detail_type and details.get("name") in detail_names:
             return details
     # not found, return empty dict
@@ -62,7 +56,6 @@ PERMISSIVE_VISIBILITY = [
 details = details_lookup("access", RESOURCE_CHANGE_EVENTS, PantherEvent)
 doc_title = parameter_lookup(details.get("parameters", {}), "doc_title")
 share_settings = parameter_lookup(details.get("parameters", {}), "visibility")
-print(details)
 
 
 
