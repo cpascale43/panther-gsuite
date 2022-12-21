@@ -9,7 +9,7 @@ from .._shared import (
 
 def gsuite_brute_force_login(
     pre_filters: typing.List[detection.AnyFilter] = None,
-    overrides: detection.RuleOptions = detection.RuleOptions(),
+    overrides: detection.RuleOverrides = detection.RuleOverrides(),
 ) -> detection.Rule:
     """A GSuite user was denied login access several times"""
 
@@ -41,7 +41,7 @@ def gsuite_brute_force_login(
             pre_filters=pre_filters,
             defaults=[
                 match_filters.deep_equal(
-                    "eventName", "login_failure"),
+                    "name", "login_failure"),
             ],
         ),
         alert_title=(overrides.alert_title or _title),

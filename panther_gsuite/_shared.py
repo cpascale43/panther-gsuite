@@ -3,7 +3,7 @@ from panther_sdk import detection
 
 def pick_filters(
     pre_filters: Optional[List[detection.AnyFilter]],
-    overrides: detection.RuleOptions,
+    overrides: detection.RuleOverrides,
     defaults: List[detection.AnyFilter],
 ) -> List[detection.AnyFilter]:
     if pre_filters is None:
