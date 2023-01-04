@@ -41,7 +41,6 @@ user_publicly_shared_calendar = json.dumps(
 
 )
 
-
 admin_set_default_cal_setting = json.dumps(
       {
         "actor": {
@@ -68,7 +67,6 @@ admin_set_default_cal_setting = json.dumps(
         "type": "CALENDAR_SETTINGS"
       }
 )
-
 
 list_object_type = json.dumps(
 
@@ -160,5 +158,270 @@ overly_visible_doc_modified = json.dumps(
               ]
           }
         ]
+      }
+)
+
+normal_login = json.dumps(
+      {
+        "id": {
+          "applicationName": "login",
+        },
+        "actor": {
+          "email": "homer.simpson@example.com",
+        },
+        "type": "login",
+        "name": "login_success",
+        "parameters": {
+          "is_suspicious": "null",
+          "login_challenge_method": [
+              "none"
+          ],
+        },
+      }
+)
+
+gov_backed_warning = json.dumps(
+      {
+        "id": {
+          "applicationName": "login",
+        },
+        "actor": {
+          "email": "homer.simpson@example.com",
+        },
+        "type": "login",
+        "name": "gov_attack_warning",
+        "parameters": {
+          "is_suspicious": "null",
+          "login_challenge_method": [
+              "none"
+          ],
+        },
+      }
+)
+
+normal_mobile_event = json.dumps(
+      {
+        "id": {
+          "applicationName": "mobile",
+        },
+        "actor": {
+          "callerType": "USER",
+          "email": "homer.simpson@example.io",
+        },
+        "type": "device_updates",
+        "name": "DEVICE_SYNC_EVENT",
+        "parameters": {
+          "USER_EMAIL": "homer.simpson@example.io"
+        },
+      }
+)
+
+suspicious_activity = json.dumps(
+      {
+        "id": {
+          "applicationName": "mobile",
+        },
+        "actor": {
+          "callerType": "USER",
+          "email": "homer.simpson@example.io",
+        },
+        "type": "device_updates",
+        "name": "SUSPICIOUS_ACTIVITY_EVENT",
+        "parameters": {
+          "USER_EMAIL": "homer.simpson@example.io"
+       },
+      }
+)
+
+advanced_protection_enabled = json.dumps(
+        {
+        "id": {
+          "applicationName": "user_accounts",
+        },
+        "actor": {
+          "callerType": "USER",
+          "email": "homer.simpson@example.com"
+        },
+        "type": "titanium_change",
+        "name": "titanium_enroll",
+      }
+)
+
+advanced_protection_disabled = json.dumps(
+      {
+        "id": {
+          "applicationName": "user_accounts",
+        },
+        "actor": {
+          "callerType": "USER",
+          "email": "homer.simpson@example.com"
+        },
+        "type": "titanium_change",
+        "name": "titanium_unenroll",
+      }
+)
+
+
+non_triggered_rule = json.dumps(
+      {
+        "id": {
+          "applicationName": "rules"
+        },
+        "actor": {
+          "email": "some.user@somedomain.com"
+        },
+        "parameters": {
+          "severity": "HIGH",
+          "triggered_actions": None
+        },
+      }
+)
+
+high_severity_rule = json.dumps(
+      {
+        "id": {
+          "applicationName": "rules"
+        },
+        "actor": {
+          "email": "some.user@somedomain.com"
+        },
+        "parameters": {
+          "data_source": "DRIVE",
+          "severity": "HIGH",
+          "triggered_actions": [
+            {
+              "action_type": "DRIVE_UNFLAG_DOCUMENT"
+            }
+          ]
+        }
+      }
+)
+
+medium_severity_rule = json.dumps(
+      {
+        "id": {
+          "applicationName": "rules"
+        },
+        "actor": {
+          "email": "some.user@somedomain.com"
+        },
+        "parameters": {
+          "data_source": "DRIVE",
+          "severity": "MEDIUM",
+          "triggered_actions": [
+            {
+              "action_type": "DRIVE_UNFLAG_DOCUMENT"
+            }
+          ]
+        }
+      }
+)
+
+low_severity_rule = json.dumps(    
+      {
+        "id": {
+          "applicationName": "rules"
+        },
+        "actor": {
+          "email": "some.user@somedomain.com"
+        },
+        "parameters": {
+          "severity": "LOW",
+          "triggered_actions": [
+            {
+              "action_type": "DRIVE_UNFLAG_DOCUMENT"
+            }
+          ]
+        }
+      }
+)
+
+high_severity_rule_with_rule_name = json.dumps(
+      {
+        "id": {
+          "applicationName": "rules"
+        },
+        "actor": {
+          "email": "some.user@somedomain.com"
+        },
+        "parameters": {
+          "severity": "HIGH",
+          "rule_name": "CEO Impersonation",
+          "triggered_actions": [
+            {
+              "action_type": "MAIL_MARK_AS_PHISHING"
+            }
+          ]
+        }
+      }
+)
+
+login_with_approved_type =  json.dumps(
+      {
+        "id": {
+          "applicationName": "login",
+        },
+        "actor": {
+          "email": "some.user@somedomain.com"
+        },
+        "type": "login",
+        "name": "login_success",
+        "parameters": {
+          "login_type": "saml"
+        },
+      }
+)
+
+login_with_unapproved_type = json.dumps(
+      {
+        "id": {
+          "applicationName": "login",
+        },
+        "actor": {
+          "email": "some.user@somedomain.com"
+        },
+        "type": "login",
+        "name": "login_success",
+        "parameters": {
+          "login_type": "turbo-snail"
+        },
+      }
+)
+
+non_login_event = json.dumps(
+      {
+        "id": {
+          "applicationName": "logout",
+        },
+        "actor": {
+          "email": "some.user@somedomain.com"
+        },
+        "type": "login",
+        "name": "login_success",
+        "parameters": {
+          "login_type": "saml"
+        },
+      }
+)
+
+saml_login_event = json.dumps(
+      {
+        "actor": {
+          "email": "some.user@somedomain.com",
+        },
+        "id": {
+          "applicationName": "saml",
+          "time": "2022-05-26 15:26:09.421000000",
+        },
+        "ipAddress": "10.10.10.10",
+        "kind": "admin#reports#activity",
+        "name": "login_success",
+        "parameters": {
+          "application_name": "Some SAML Application",
+          "initiated_by": "sp",
+          "orgunit_path": "/SomeOrgUnit",
+          "saml_status_code": "SUCCESS_URI"
+        },
+        "type": "login"
       }
 )

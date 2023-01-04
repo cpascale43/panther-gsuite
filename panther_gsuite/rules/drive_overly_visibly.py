@@ -19,8 +19,12 @@ GSUITE_PARAMETER_VALUES = [
     "multiMessageValue",
 ]
 
-def details_lookup(detail_type, detail_names, event):
+def details_lookup(detail_type, detail_names, event: PantherEvent):
+    print(event)
+    print(type(event))
+    print(event.get("events"))
     for details in event.deep_get("events"):
+        print(details)
         if details.get("type") == detail_type and details.get("name") in detail_names:
             return details
     # not found, return empty dict

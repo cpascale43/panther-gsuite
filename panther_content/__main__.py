@@ -5,7 +5,8 @@ from . import customer_sample_logs
 from panther_gsuite import sample_logs
 
 
-gsuite_rules.gsuite_drive_overly_visible()
+
+# Tested rules ##
 
 gsuite_rules.gsuite_brute_force_login(
     #only pass through if
@@ -44,3 +45,12 @@ gsuite_rules.gsuite_calendar_made_public(
 		#     severity=detection.SeverityInfo
         # )
 )
+
+
+## Work in progress rules ##
+#gsuite_rules.gsuite_drive_overly_visible()
+gsuite_rules.gsuite_gov_attack()
+gsuite_rules.gsuite_advanced_protection()
+gsuite_rules.gsuite_device_suspicious_activity()
+gsuite_rules.gsuite_passthrough_rule()
+gsuite_rules.gsuite_login_type()
