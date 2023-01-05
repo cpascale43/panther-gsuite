@@ -47,10 +47,13 @@ gsuite_rules.gsuite_calendar_made_public(
 )
 
 
-## Work in progress rules ##
-#gsuite_rules.gsuite_drive_overly_visible()
 gsuite_rules.gsuite_gov_attack()
 gsuite_rules.gsuite_advanced_protection()
 gsuite_rules.gsuite_device_suspicious_activity()
 gsuite_rules.gsuite_passthrough_rule()
 gsuite_rules.gsuite_login_type()
+gsuite_rules.gsuite_leaked_password()
+gsuite_rules.gsuite_mobile_device_screen_unlock_fail()
+
+## Work in progress rules ##
+#gsuite_rules.gsuite_drive_overly_visible()

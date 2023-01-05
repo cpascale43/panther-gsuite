@@ -6,3 +6,5 @@ from .device_suspicious_activity import *
 from .advanced_protection import *
 from .passthrough_rule import *
 from .login_type import *
+from .leaked_password import *
+from .mobile_device_screen_unlock_fail import *

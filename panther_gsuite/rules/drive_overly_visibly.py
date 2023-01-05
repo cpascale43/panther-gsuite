@@ -4,47 +4,11 @@ from panther_utils import standard_tags, match_filters
 
 from .. import sample_logs
 from .._shared import (
+    gsuite_parameter_lookup,
+    gsuite_details_lookup,
     pick_filters
 )
 
-
-### Global Helpers Begin ###
-GSUITE_PARAMETER_VALUES = [
-    "value",
-    "intValue",
-    "boolValue",
-    "multiValue",
-    "multiIntValue",
-    "messageValue",
-    "multiMessageValue",
-]
-
-def details_lookup(detail_type, detail_names, event: PantherEvent):
-    print(event)
-    print(type(event))
-    print(event.get("events"))
-    for details in event.deep_get("events"):
-        print(details)
-        if details.get("type") == detail_type and details.get("name") in detail_names:
-            return details
-    # not found, return empty dict
-    return {}
-
-def parameter_lookup(parameters, key):
-    for param in parameters:
-        if param["name"] != key:
-            continue
-        for value in GSUITE_PARAMETER_VALUES:
-            if value in param:
-                return param[value]
-        return None
-    return None
-
-    
-### Global helper ends ###    
-
-
-### Rule Logic Begins ###
 RESOURCE_CHANGE_EVENTS = {
     "create",
     "move",
@@ -52,17 +16,12 @@ RESOURCE_CHANGE_EVENTS = {
     "edit",
 }
 
-PERMISSIVE_VISIBILITY = [
+PERMISSIVE_VISIBILITY = {
     "people_with_link",
     "public_on_the_web",
-]
+}
 
-details = details_lookup("access", RESOURCE_CHANGE_EVENTS, PantherEvent)
-doc_title = parameter_lookup(details.get("parameters", {}), "doc_title")
-share_settings = parameter_lookup(details.get("parameters", {}), "visibility")
-
-
-
+details = gsuite_details_lookup("access", RESOURCE_CHANGE_EVENTS, PantherEvent)
 
 def gsuite_drive_overly_visible(
     pre_filters: typing.List[detection.AnyFilter] = None,
@@ -70,9 +29,11 @@ def gsuite_drive_overly_visible(
 ) -> detection.Rule:
     """GSuite Calendar Has Been Made Public"""
 
+
     def _title(event: PantherEvent) -> str:
-        #doc_title = parameter_lookup(details.get("parameters", {}), "doc_title")
-        #share_settings = parameter_lookup(details.get("parameters", {}), "visibility")
+        details = gsuite_details_lookup("access", RESOURCE_CHANGE_EVENTS, event)
+        doc_title = gsuite_parameter_lookup(details.get("parameters", {}), "doc_title")
+        share_settings = gsuite_parameter_lookup(details.get("parameters", {}), "visibility")
         return (
             f"User [{event.deep_get(event, 'actor', 'email', default='<UNKNOWN_EMAIL>')}]"
             f" modified a document [{doc_title}] that has overly permissive share"
@@ -81,9 +42,9 @@ def gsuite_drive_overly_visible(
 
 
     def _alert_grouping(event: PantherEvent) -> str:
-        #details = details_lookup("access", RESOURCE_CHANGE_EVENTS, event)
-        if parameter_lookup(details.get("parameters", {}), "doc_title"):
-            return parameter_lookup(details.get("parameters", {}), "doc_title")
+        details = gsuite_details_lookup("access", RESOURCE_CHANGE_EVENTS, event)
+        if gsuite_parameter_lookup(details.get("parameters", {}), "doc_title"):
+            return gsuite_parameter_lookup(details.get("parameters", {}), "doc_title")
         return "<UNKNOWN_DOC_TITLE>"
 
     
@@ -111,15 +72,10 @@ def gsuite_drive_overly_visible(
         filters=pick_filters(
             overrides=overrides,
             pre_filters=pre_filters,
-            #name == change_calendars_acls &
-            #parameters.grantee_email == __public_principal__@public.calendar.google.com
             defaults=[
-                match_filters.deep_exists(
-                    details
-                ),
-                match_filters.deep_in(
-                    parameter_lookup(details.get("parameters", {}), PERMISSIVE_VISIBILITY)
-                )
+                match_filters.deep_equal("id.applicationName", "drive"),
+                match_filters.deep_exists(details),
+                #gsuite_parameter_lookup(details.get("parameters", {}), "visibility") in PERMISSIVE_VISIBILITY
             ],
         ),
         alert_title=(overrides.alert_title or _title),

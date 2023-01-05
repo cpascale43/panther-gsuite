@@ -261,7 +261,6 @@ advanced_protection_disabled = json.dumps(
       }
 )
 
-
 non_triggered_rule = json.dumps(
       {
         "id": {
@@ -425,3 +424,254 @@ saml_login_event = json.dumps(
         "type": "login"
       }
 )
+
+dangerous_share_of_known_doc_with_a_missing_user  =  json.dumps(
+      {
+         "kind":"admin#reports#activity",
+         "id":{
+            "time":"2020-09-07T15:50:49.617Z",
+            "uniqueQualifier":"1111111111111111111",
+            "applicationName":"drive",
+            "customerId":"C010qxghg"
+         },
+         "actor":{
+            "email":"example@acme.com",
+            "profileId":"1111111111111111111"
+         },
+         "events":[
+            {
+               "type":"acl_change",
+               "name":"change_user_access",
+               "parameters":[
+                  {
+                     "name":"primary_event",
+                     "boolValue":True
+                  },
+                  {
+                     "name":"visibility_change",
+                     "value":"external"
+                  },
+                  {
+                     "name":"target_user",
+                     "value":"outside@acme.com"
+                  },
+                  {
+                     "name":"old_visibility",
+                     "value":"private"
+                  },
+                  {
+                     "name":"doc_id",
+                     "value":"1111111111111111111"
+                  },
+                  {
+                     "name":"doc_type",
+                     "value":"document"
+                  },
+                  {
+                     "name":"doc_title",
+                     "value":"Document Title Primary"
+                  },
+                  {
+                     "name":"visibility",
+                     "value":"shared_externally"
+                  },
+                  {
+                     "name":"originating_app_id",
+                     "value":"1111111111111111111"
+                  },
+                  {
+                     "name":"owner_is_shared_drive",
+                     "boolValue":False
+                  },
+                  {
+                     "name":"owner_is_team_drive",
+                     "boolValue":False
+                  },
+                  {
+                     "name":"old_value",
+                     "multiValue":[
+                        "none"
+                     ]
+                  },
+                  {
+                     "name":"new_value",
+                     "multiValue":[
+                        "can_edit"
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+)
+
+dangerous_share_of_unknown_doc  =  json.dumps(
+      {
+         "kind":"admin#reports#activity",
+         "id":{
+            "time":"2020-09-07T15:50:49.617Z",
+            "uniqueQualifier":"1111111111111111111",
+            "applicationName":"drive",
+            "customerId":"C010qxghg"
+         },
+         "actor":{
+            "email":"example@acme.com",
+            "profileId":"1111111111111111111"
+         },
+         "events":[
+            {
+               "type":"acl_change",
+               "name":"change_user_access",
+               "parameters":[
+                  {
+                     "name":"primary_event",
+                     "boolValue":True
+                  },
+                  {
+                     "name":"visibility_change",
+                     "value":"external"
+                  },
+                  {
+                     "name":"target_user",
+                     "value":"alice@external.com"
+                  },
+                  {
+                     "name":"old_visibility",
+                     "value":"private"
+                  },
+                  {
+                     "name":"doc_id",
+                     "value":"1111111111111111111"
+                  },
+                  {
+                     "name":"doc_type",
+                     "value":"document"
+                  },
+                  {
+                     "name":"doc_title",
+                     "value":"Untitled document"
+                  },
+                  {
+                     "name":"visibility",
+                     "value":"shared_externally"
+                  },
+                  {
+                     "name":"originating_app_id",
+                     "value":"1111111111111111111"
+                  },
+                  {
+                     "name":"owner_is_shared_drive",
+                     "boolValue":False
+                  },
+                  {
+                     "name":"owner_is_team_drive",
+                     "boolValue":False
+                  },
+                  {
+                     "name":"old_value",
+                     "multiValue":[
+                        "none"
+                     ]
+                  },
+                  {
+                     "name":"new_value",
+                     "multiValue":[
+                        "can_edit"
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+)
+
+share_allowed_by_exception  =  json.dumps(
+      {
+         "kind":"admin#reports#activity",
+         "id":{
+            "time":"2020-07-07T15:50:49.617Z",
+            "uniqueQualifier":"1111111111111111111",
+            "applicationName":"drive",
+            "customerId":"C010qxghg"
+         },
+         "actor":{
+            "email":"alice@acme.com",
+            "profileId":"1111111111111111111"
+         },
+         "events":[
+            {
+               "type":"acl_change",
+               "name":"change_user_access",
+               "parameters":[
+                  {
+                     "name":"primary_event",
+                     "boolValue":True
+                  },
+                  {
+                     "name":"billable",
+                     "boolValue":True
+                  },
+                  {
+                     "name":"visibility_change",
+                     "value":"external"
+                  },
+                  {
+                     "name":"target_domain",
+                     "value":"acme.com"
+                  },
+                  {
+                     "name":"old_visibility",
+                     "value":"private"
+                  },
+                  {
+                     "name":"doc_id",
+                     "value":"1111111111111111111"
+                  },
+                  {
+                     "name":"doc_type",
+                     "value":"document"
+                  },
+                  {
+                     "name":"doc_title",
+                     "value":"Document Title Pattern"
+                  },
+                  {
+                     "name":"visibility",
+                     "value":"shared_externally"
+                  },
+                  {
+                     "name":"originating_app_id",
+                     "value":"1111111111111111111"
+                  },
+                  {
+                     "name":"owner_is_shared_drive",
+                     "boolValue":False
+                  },
+                  {
+                     "name":"owner_is_team_drive",
+                     "boolValue":False
+                  },
+                  {
+                     "name":"old_value",
+                     "multiValue":[
+                        "none"
+                     ]
+                  },
+                  {
+                     "name":"new_value",
+                     "multiValue":[
+                        "people_within_domain_with_link"
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+)
+
+normal_login_event = json.dumps({'id': {'applicationName': 'login'}, 'type': 'login', 'name': 'logout', 'parameters': {'login_type': 'saml'}})
+account_warning_not_for_password_leaked = json.dumps({'id': {'applicationName': 'login'}, 'type': 'account_warning', 'name': 'account_disabled_spamming', 'parameters': {'affected_email_address': 'homer.simpson@example.com'}})
+account_warning_for_password_leaked = json.dumps({'id': {'applicationName': 'login'}, 'type': 'account_warning', 'name': 'account_disabled_password_leak', 'parameters': {'affected_email_address': 'homer.simpson@example.com'}})
+small_number_of_failed_logins = json.dumps({'id': {'applicationName': 'mobile'}, 'actor': {'callerType': 'USER', 'email': 'homer.simpson@example.io'}, 'type': 'device_updates', 'name': 'FAILED_PASSWORD_ATTEMPTS_EVENT', 'parameters': {'USER_EMAIL': 'homer.simpson@example.io', 'FAILED_PASSWD_ATTEMPTS': 2}})
+multiple_failed_login_attempts_with_string_type = json.dumps({'id': {'applicationName': 'mobile'}, 'actor': {'callerType': 'USER', 'email': 'homer.simpson@example.io'}, 'type': 'device_updates', 'name': 'FAILED_PASSWORD_ATTEMPTS_EVENT', 'parameters': {'USER_EMAIL': 'homer.simpson@example.io', 'FAILED_PASSWD_ATTEMPTS': '100'}})
+multiple_failed_login_attempts_with_int_type = json.dumps({'id': {'applicationName': 'mobile'}, 'actor': {'callerType': 'USER', 'email': 'homer.simpson@example.io'}, 'type': 'device_updates', 'name': 'FAILED_PASSWORD_ATTEMPTS_EVENT', 'parameters': {'USER_EMAIL': 'homer.simpson@example.io', 'FAILED_PASSWD_ATTEMPTS': 100}})
