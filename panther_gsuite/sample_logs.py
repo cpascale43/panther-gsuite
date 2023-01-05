@@ -162,3 +162,20 @@ overly_visible_doc_modified = json.dumps(
         ]
       }
 )
+
+forwarding_to_external_address = json.dumps(
+{
+      "id": {
+          "applicationName": "user_accounts",
+          "customerId": "D12345",
+        },
+        "actor": {
+          "email": "homer.simpson@.springfield.io",
+        },
+        "type": "email_forwarding_change",
+        "name": "email_forwarding_out_of_domain",
+        "parameters": {
+          "email_forwarding_destination_address": "HSimpson@gmail.com"
+        },
+      }
+)

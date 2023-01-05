@@ -1,13 +1,18 @@
 import panther_gsuite.rules as gsuite_rules
-from panther_sdk import detection
+from panther_sdk import detection, PantherEvent
 from panther_utils import match_filters
+from panther_gsuite._shared import create_alert_context
 from . import customer_sample_logs
 from panther_gsuite import sample_logs
 
 
-gsuite_rules.gsuite_drive_overly_visible()
+# gsuite_rules.gsuite_drive_overly_visible()
 
-gsuite_rules.gsuite_brute_force_login(
+def generate_severity(str):
+    return f'{str} hi'
+
+
+bfl =  gsuite_rules.gsuite_brute_force_login(
     #only pass through if
     pre_filters=[
         match_filters.deep_not_equal_pattern(path="actor.email", pattern=".+@acme.com"),
@@ -16,7 +21,10 @@ gsuite_rules.gsuite_brute_force_login(
         # override the default "reference"
         reference="some custom gsuite reference",
 		# override the default "severity" with INFO
-		severity=detection.SeverityInfo,
+		severity=detection.DynamicStringField(
+            func=generate_severity,
+            fallback='bye'
+        ),
         unit_tests=[
             detection.JSONUnitTest(
                 name="My Test Override",
@@ -28,8 +36,18 @@ gsuite_rules.gsuite_brute_force_login(
                 expect_match=False,
                 data=customer_sample_logs.acme_sample,
                 )
-        ]
+        ],
+        # alert_context=create_alert_context('')
     )
+)
+
+gsuite_rules.gsuite_external_forwarding(
+    overrides=detection.RuleOverrides(
+        # override the default "reference"
+        reference="<https://security-wiki.megacorp.internal/okta-incident-response>",
+        # override the default "severity" with INFO
+        severity=detection.SeverityInfo
+    ),
 )
 
 gsuite_rules.gsuite_calendar_made_public(
@@ -44,3 +62,5 @@ gsuite_rules.gsuite_calendar_made_public(
 		#     severity=detection.SeverityInfo
         # )
 )
+
+# print(bfl)
