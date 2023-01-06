@@ -40,8 +40,6 @@ def gsuite_calendar_made_public(
         filters=pick_filters(
             overrides=overrides,
             pre_filters=pre_filters,
-            #name == change_calendars_acls &
-            #parameters.grantee_email == __public_principal__@public.calendar.google.com
             defaults=[
                 match_filters.deep_equal(
                     "name", "change_calendar_acls"),

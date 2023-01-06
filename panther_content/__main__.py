@@ -8,6 +8,8 @@ from panther_gsuite import sample_logs
 
 # gsuite_rules.gsuite_drive_overly_visible()
 
+# Tested rules ##
+
 def generate_severity(event):
     from panther_sdk import detection
     if event["origin"] != "internal.megacorp.com":
@@ -76,3 +78,13 @@ gsuite_rules.gsuite_suspicious_logins(
 )
 
 gsuite_rules.gsuite_user_suspended()
+gsuite_rules.gsuite_gov_attack()
+gsuite_rules.gsuite_advanced_protection()
+gsuite_rules.gsuite_device_suspicious_activity()
+gsuite_rules.gsuite_passthrough_rule()
+gsuite_rules.gsuite_login_type()
+gsuite_rules.gsuite_leaked_password()
+gsuite_rules.gsuite_mobile_device_screen_unlock_fail()
+
+## Work in progress rules ##
+#gsuite_rules.gsuite_drive_overly_visible()
