@@ -4,8 +4,8 @@ import json
 from panther_sdk import detection, PantherEvent
 from panther_utils import match_filters
 
-from .panther_gsuite._shared import (
-    pick_filters
+from ..panther_gsuite._shared import (
+    pick_filters,
 )
 
 

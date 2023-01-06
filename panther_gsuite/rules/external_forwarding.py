@@ -9,8 +9,7 @@ from .._shared import (
     create_alert_context
 )
 
-# where do I put the rule logic??????? - everything is a filter now and you can make a custom filter with your rule logic
-
+# where do I put the rule logic??????? - answer: I think all logic is a filter now and you can make a custom filter containing your rule function like this
 def rule_filter() -> detection.PythonFilter:
     def _rule_filter(event: PantherEvent) -> bool:
         # is deep_get not available?
