@@ -84,7 +84,9 @@ gsuite_rules.gsuite_device_suspicious_activity()
 gsuite_rules.gsuite_passthrough_rule()
 gsuite_rules.gsuite_login_type()
 gsuite_rules.gsuite_leaked_password()
-gsuite_rules.gsuite_mobile_device_screen_unlock_fail()
+gsuite_rules.gsuite_group_banned_user()
+gsuite_rules.gsuite_device_compromised()
+# gsuite_rules.gsuite_mobile_device_screen_unlock_fail()
 
 ## Work in progress rules ##
 #gsuite_rules.gsuite_drive_overly_visible()
