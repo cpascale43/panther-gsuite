@@ -7,9 +7,12 @@ from .._shared import (
     pick_filters
 )
 
+# def generate_severity(str):
+#     return f'{str} hi'
+
 def gsuite_brute_force_login(
     pre_filters: typing.List[detection.AnyFilter] = None,
-    overrides: detection.RuleOptions = detection.RuleOptions(),
+    overrides: detection.RuleOverrides = detection.RuleOverrides(),
 ) -> detection.Rule:
     """A GSuite user was denied login access several times"""
 
@@ -24,7 +27,6 @@ def gsuite_brute_force_login(
         ),
         reports=(overrides.reports or {
                  detection.ReportKeyMITRE: ["TA0005:T1556"]}),
-        severity=(overrides.severity or detection.SeverityHigh),
         description=(
             overrides.description
             or "A GSuite user was denied login access several times"
@@ -41,9 +43,20 @@ def gsuite_brute_force_login(
             pre_filters=pre_filters,
             defaults=[
                 match_filters.deep_equal(
-                    "eventName", "login_failure"),
+                    "name", "login_failure"),
             ],
         ),
+        severity=(overrides.severity or "INFO"),
+        # this works, so why do we need a DynamicStringField class?
+        # severity=(overrides.severity or generate_severity('hi')),
+        # severity=(overrides.severity or detection.DynamicStringField(
+        #     func=generate_severity,
+        #     fallback='bye'
+        # )),
+        #  severity=(detection.DynamicStringFieldOverrides or detection.DynamicStringField(
+        #     func=generate_severity,
+        #     fallback='bye'
+        # )),
         alert_title=(overrides.alert_title or _title),
         unit_tests=(
             overrides.unit_tests
